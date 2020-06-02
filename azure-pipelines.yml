@@ -1,28 +1,19 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
 - '*'
 
 pool:
-  vmImage: 'ubuntu-16.04'
+  vmImage: 'ubuntu-18.04'
   demands:
-  - npm
-
-variables:  
-  buildConf: 'Release'
+    - npm
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Use .NET Core SDK 3.1.100'
+  displayName: 'Use .NET Core SDK 3.1.300'
   inputs:
-    packageType: sdk
-    version: 3.1.100
+    version: 3.1.300
 
 - task: Npm@1
-  displayName: 'Run npm Install'
+  displayName: 'Run npm install'
   inputs:
     verbose: false
 
@@ -59,5 +50,5 @@ steps:
     zipAfterPublish: true
 
 - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact: drop'
-    condition: succeeded()
+  displayName: 'Publish Artifact: drop'
+  condition: succeeded()
